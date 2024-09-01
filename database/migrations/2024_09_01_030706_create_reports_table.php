@@ -11,23 +11,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('phone_number');
-            $table->enum('role', ['patient', 'doctor', 'admin']);
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('report_data');
+            $table->timestamp('generated_at')->nullable();
         });
     }
     
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('reports');
     }
 };

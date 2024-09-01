@@ -11,23 +11,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('phone_number');
-            $table->enum('role', ['patient', 'doctor', 'admin']);
+            $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
+            $table->decimal('amount', 10, 2);
+            $table->dateTime('payment_date');
+            $table->enum('payment_method', ['credit_card', 'mobile_money', 'cash']);
             $table->timestamps();
         });
     }
     
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('payments');
     }
 };

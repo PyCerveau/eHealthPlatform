@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class HealthCenter extends Model
+{
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'location',
+        'contact_info',
+    ];
+
+    /**
+     * Get the users associated with the health center.
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+}
